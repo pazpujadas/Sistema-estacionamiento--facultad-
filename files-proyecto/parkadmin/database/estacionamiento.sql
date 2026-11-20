@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 
 -- Volcando datos para la tabla estacionamiento.cliente: ~2 rows (aproximadamente)
 INSERT INTO `cliente` (`id_cliente`, `nombre`, `apellido`, `telefono`, `correo_electronico`) VALUES
-	(1, 'juan', 'perez', '1132236556', 'juanperez45@gmail.com'),
-	(2, 'pablo', 'cari', '113226256', 'pablocari58@gmail.com');
+	(10, 'juan', 'perez', '1132236556', 'juanperez45@gmail.com'),
+	(15, 'pablo', 'cari', '113226256', 'pablocari58@gmail.com');
 
 -- Volcando estructura para tabla estacionamiento.estado
 CREATE TABLE IF NOT EXISTS `estado` (
@@ -43,8 +43,8 @@ CREATE TABLE IF NOT EXISTS `estado` (
 
 -- Volcando datos para la tabla estacionamiento.estado: ~2 rows (aproximadamente)
 INSERT INTO `estado` (`id_estado`, `descripcion`) VALUES
-	(1, 'disponible'),
-	(2, 'ocupado');
+	(8, 'disponible'),
+	(6, 'ocupado');
 
 -- Volcando estructura para tabla estacionamiento.tarifa
 CREATE TABLE IF NOT EXISTS `tarifa` (
