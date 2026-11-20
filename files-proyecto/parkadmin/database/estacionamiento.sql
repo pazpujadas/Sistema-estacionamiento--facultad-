@@ -89,8 +89,6 @@ CREATE TABLE IF NOT EXISTS `luagres` (
   CONSTRAINT `luagres_ibfk_2` FOREIGN KEY (`patente`) REFERENCES `vehiculo` (`patente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla estacionamiento.luagres: ~0 rows (aproximadamente)
-
 -- Volcando estructura para tabla estacionamiento.pagos
 CREATE TABLE IF NOT EXISTS `pagos` (
   `id_pago` int(4) NOT NULL,
@@ -107,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `pagos` (
 
 -- Volcando datos para la tabla estacionamiento.pagos: ~0 rows (aproximadamente)
 
--- ---- ParkAdmin: tablas nuevas (no modifican las anteriores) ----
+-- Volcando estructura para tabla empresa
 CREATE TABLE IF NOT EXISTS `empresa` (
   `id_empresa` INT AUTO_INCREMENT PRIMARY KEY,
   `nombre` VARCHAR(60) NOT NULL,
@@ -117,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   `cantidad_lugares` INT NOT NULL
 );
 
--- Diagrama: Empleado (id, rol, nombre, apellido) + usuario/contraseña para iniciar sesión
+-- Volcando estructura para tabla empleado.empresa
 CREATE TABLE IF NOT EXISTS `empleado` (
   `id_empleado` INT AUTO_INCREMENT PRIMARY KEY,
   `id_empresa` INT NOT NULL,
@@ -129,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   FOREIGN KEY (`id_empresa`) REFERENCES `empresa`(`id_empresa`)
 );
 
--- Dice a qué empresa pertenece cada lugar de la tabla luagres (sin modificarla)
+-- Volcando estructura para tabla lugares.empresa
 CREATE TABLE IF NOT EXISTS `lugar_empresa` (
   `id_lugar` INT PRIMARY KEY,
   `id_empresa` INT NOT NULL,
@@ -137,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `lugar_empresa` (
   FOREIGN KEY (`id_empresa`) REFERENCES `empresa`(`id_empresa`)
 );
 
--- Diagrama: Vehiculo RECIBE Ticket, Ticket ASIGNA Lugar, Ticket APLICA Tarifa, Empleado COBRA Ticket
+-- Volcando estructura para tabla ticket.empresa
 CREATE TABLE IF NOT EXISTS `ticket` (
   `num_ticket` INT AUTO_INCREMENT PRIMARY KEY,
   `patente` VARCHAR(10) NOT NULL,
