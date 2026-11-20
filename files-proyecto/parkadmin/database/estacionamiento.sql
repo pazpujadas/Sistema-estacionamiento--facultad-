@@ -20,7 +20,7 @@ CREATE DATABASE IF NOT EXISTS `estacionamiento` /*!40100 DEFAULT CHARACTER SET u
 USE `estacionamiento`;
 
 -- Volcando estructura para tabla estacionamiento.cliente
-CREATE TABLE IF NOT EXISTS `cliente` (
+CREATE TABLE IF NOT EXISTS `clientes` (
   `id_cliente` int(3) NOT NULL,
   `nombre` varchar(30) DEFAULT NULL,
   `apellido` varchar(30) DEFAULT NULL,
@@ -35,7 +35,7 @@ INSERT INTO `cliente` (`id_cliente`, `nombre`, `apellido`, `telefono`, `correo_e
 	(15, 'pablo', 'cari', '113226256', 'pablocari58@gmail.com');
 
 -- Volcando estructura para tabla estacionamiento.estado
-CREATE TABLE IF NOT EXISTS `estado` (
+CREATE TABLE IF NOT EXISTS `estados` (
   `id_estado` int(2) NOT NULL,
   `descripcion` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id_estado`)
@@ -47,7 +47,7 @@ INSERT INTO `estado` (`id_estado`, `descripcion`) VALUES
 	(6, 'ocupado');
 
 -- Volcando estructura para tabla estacionamiento.tarifa
-CREATE TABLE IF NOT EXISTS `tarifa` (
+CREATE TABLE IF NOT EXISTS `tarifas` (
   `id_tarifa` int(2) NOT NULL,
   `descripcion` varchar(100) DEFAULT NULL,
   `tipo_vehiculo` varchar(20) DEFAULT NULL,
@@ -60,7 +60,7 @@ INSERT INTO `tarifa` (`id_tarifa`, `descripcion`, `tipo_vehiculo`, `precio_hora`
 	(1, 'tarifa auto', 'auto', 7000.02);
 
 -- Volcando estructura para tabla estacionamiento.vehiculo
-CREATE TABLE IF NOT EXISTS `vehiculo` (
+CREATE TABLE IF NOT EXISTS `vehiculos` (
   `patente` varchar(10) NOT NULL,
   `marca` varchar(30) DEFAULT NULL,
   `modelo` varchar(30) DEFAULT NULL,
@@ -103,22 +103,22 @@ CREATE TABLE IF NOT EXISTS `pagos` (
   CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_tarifa`) REFERENCES `tarifa` (`id_tarifa`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla estacionamiento.pagos: ~0 rows (aproximadamente)
-
 -- Volcando estructura para tabla empresa
-CREATE TABLE IF NOT EXISTS `empresa` (
-  `id_empresa` INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `empresas` (
+  `id_empresa` INT(2) AUTO_INCREMENT PRIMARY KEY,
   `nombre` VARCHAR(60) NOT NULL,
-  `email` VARCHAR(60),
-  `tamano` VARCHAR(20) NOT NULL,
-  `max_empleados` INT NOT NULL,
-  `cantidad_lugares` INT NOT NULL
+  `email` VARCHAR(60) NOT NULL,
+  `tamaño` VARCHAR(20) NOT NULL,
+  `max_empleados` INT(4) NOT NULL,
+  `cantidad_lugares` INT(4) NOT NULL
 );
 
 -- Volcando estructura para tabla empleado.empresa
-CREATE TABLE IF NOT EXISTS `empleado` (
-  `id_empleado` INT AUTO_INCREMENT PRIMARY KEY,
-  `id_empresa` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `empleados` (
+  `id_empleado` INT(4) AUTO_INCREMENT PRIMARY KEY,
+  `id_empresa` INT(2) NOT NULL,
+  `id_empleado_ingreso` INT(4) NOT NULL,
+  `id_empleado_cobro` INT(4) NOT NULL,
   `usuario` VARCHAR(30) NOT NULL UNIQUE,
   `contrasena` VARCHAR(100) NOT NULL,
   `rol` VARCHAR(50) NOT NULL DEFAULT 'playero',
@@ -127,22 +127,22 @@ CREATE TABLE IF NOT EXISTS `empleado` (
   FOREIGN KEY (`id_empresa`) REFERENCES `empresa`(`id_empresa`)
 );
 
--- Volcando estructura para tabla lugares.empresa
-CREATE TABLE IF NOT EXISTS `lugar_empresa` (
-  `id_lugar` INT PRIMARY KEY,
-  `id_empresa` INT NOT NULL,
+-- Volcando estructura para tabla lugares.empresas
+CREATE TABLE IF NOT EXISTS `lugares_empresas` (
+  `id_lugar` INT(4) PRIMARY KEY,
+  `id_empresa` INT(2) NOT NULL,
   FOREIGN KEY (`id_lugar`) REFERENCES `luagres`(`id_lugar`),
   FOREIGN KEY (`id_empresa`) REFERENCES `empresa`(`id_empresa`)
 );
 
 -- Volcando estructura para tabla ticket.empresa
-CREATE TABLE IF NOT EXISTS `ticket` (
-  `num_ticket` INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS `tickets` (
+  `num_ticket` INT(4) AUTO_INCREMENT PRIMARY KEY,
   `patente` VARCHAR(10) NOT NULL,
-  `id_lugar` INT NOT NULL,
-  `id_tarifa` INT NOT NULL,
-  `id_empleado_ingreso` INT NOT NULL,
-  `id_empleado_cobro` INT NULL,
+  `id_lugar` INT(4) NOT NULL,
+  `id_tarifa` INT(2) NOT NULL,
+  `id_empleado_ingreso` INT(4) NOT NULL,
+  `id_empleado_cobro` INT(4) NULL,
   `diah_entrada` DATETIME NOT NULL,
   `diah_salida` DATETIME NULL,
   `monto_total` DECIMAL(10,2) NULL,
