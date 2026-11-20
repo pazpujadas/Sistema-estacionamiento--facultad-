@@ -46,6 +46,35 @@ INSERT INTO `estado` (`id_estado`, `descripcion`) VALUES
 	(1, 'disponible'),
 	(2, 'ocupado');
 
+-- Volcando estructura para tabla estacionamiento.tarifa
+CREATE TABLE IF NOT EXISTS `tarifa` (
+  `id_tarifa` int(2) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `tipo_vehiculo` varchar(20) DEFAULT NULL,
+  `precio_hora` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`id_tarifa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla estacionamiento.tarifa: ~0 rows (aproximadamente)
+INSERT INTO `tarifa` (`id_tarifa`, `descripcion`, `tipo_vehiculo`, `precio_hora`) VALUES
+	(1, 'tarifa auto', 'auto', 7000.02);
+
+-- Volcando estructura para tabla estacionamiento.vehiculo
+CREATE TABLE IF NOT EXISTS `vehiculo` (
+  `patente` varchar(10) NOT NULL,
+  `marca` varchar(30) DEFAULT NULL,
+  `modelo` varchar(30) DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `id_cliente` int(3) DEFAULT NULL,
+  PRIMARY KEY (`patente`),
+  KEY `id_cliente` (`id_cliente`),
+  CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla estacionamiento.vehiculo: ~0 rows (aproximadamente)
+INSERT INTO `vehiculo` (`patente`, `marca`, `modelo`, `color`, `id_cliente`) VALUES
+	('AB125BJ', 'toyota', 'corolla', 'verde', 1);
+
 -- Volcando estructura para tabla estacionamiento.luagres
 CREATE TABLE IF NOT EXISTS `luagres` (
   `id_lugar` int(4) NOT NULL,
@@ -77,35 +106,6 @@ CREATE TABLE IF NOT EXISTS `pagos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Volcando datos para la tabla estacionamiento.pagos: ~0 rows (aproximadamente)
-
--- Volcando estructura para tabla estacionamiento.tarifa
-CREATE TABLE IF NOT EXISTS `tarifa` (
-  `id_tarifa` int(2) NOT NULL,
-  `descripcion` varchar(100) DEFAULT NULL,
-  `tipo_vehiculo` varchar(20) DEFAULT NULL,
-  `precio_hora` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`id_tarifa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla estacionamiento.tarifa: ~0 rows (aproximadamente)
-INSERT INTO `tarifa` (`id_tarifa`, `descripcion`, `tipo_vehiculo`, `precio_hora`) VALUES
-	(1, 'tarifa auto', 'auto', 7000.02);
-
--- Volcando estructura para tabla estacionamiento.vehiculo
-CREATE TABLE IF NOT EXISTS `vehiculo` (
-  `patente` varchar(10) NOT NULL,
-  `marca` varchar(30) DEFAULT NULL,
-  `modelo` varchar(30) DEFAULT NULL,
-  `color` varchar(20) DEFAULT NULL,
-  `id_cliente` int(3) DEFAULT NULL,
-  PRIMARY KEY (`patente`),
-  KEY `id_cliente` (`id_cliente`),
-  CONSTRAINT `vehiculo_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Volcando datos para la tabla estacionamiento.vehiculo: ~0 rows (aproximadamente)
-INSERT INTO `vehiculo` (`patente`, `marca`, `modelo`, `color`, `id_cliente`) VALUES
-	('AB125BJ', 'toyota', 'corolla', 'verde', 1);
 
 -- ---- ParkAdmin: tablas nuevas (no modifican las anteriores) ----
 CREATE TABLE IF NOT EXISTS `empresa` (
