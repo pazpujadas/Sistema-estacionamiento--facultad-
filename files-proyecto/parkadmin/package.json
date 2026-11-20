@@ -1,0 +1,11 @@
+{
+  "name": "parkadmin",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "server": "npm start --prefix server",
+    "client": "npm run dev --prefix client",
+    "start": "concurrently -n API,WEB \"npm:server\" \"npm:client\""
+  },
+  "devDependencies": { "concurrently": "^9.0.1" }
+}

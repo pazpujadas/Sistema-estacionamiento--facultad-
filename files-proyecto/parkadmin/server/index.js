@@ -3,6 +3,8 @@ import cors from 'cors';
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const SECRET = process.env.JWT_SECRET || 'parkadmin-dev';
 // XAMPP: usuario root sin contraseña
@@ -126,5 +128,10 @@ app.post('/api/empleados', auth, wrap(async (req, res) => {
     [req.u.emp, usuario, await bcrypt.hash(contrasena, 10), rol === 'administrador' ? rol : 'playero', nombre, apellido]);
   res.json({ ok: true });
 }));
+
+// Sirve la web compilada (client/dist) para correr todo con un solo comando
+const dist = path.join(path.dirname(fileURLToPath(import.meta.url)), '../client/dist');
+app.use(express.static(dist));
+app.get('*', (req, res) => res.sendFile(path.join(dist, 'index.html')));
 
 app.listen(3001, () => console.log('ParkAdmin API en http://localhost:3001'));
